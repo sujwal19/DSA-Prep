@@ -142,5 +142,21 @@ var insert = function (intervals, newInterval) {
 
   return ans;
 };
+// console.log(insert(intervals, newInterval));
 
-console.log(insert(intervals, newInterval));
+//
+
+var leastInterval = function (tasks, n) {
+  let arr = [
+    [1, 2],
+    [3, 4],
+    [5, 6],
+  ];
+
+  for (let i = 0; i < arr.length; i++) {
+    const element = arr[i];
+    console.log(element[0], element[1]);
+  }
+};
+
+leastInterval(["A", "A", "A", "B", "B", "B"], 2);
