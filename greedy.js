@@ -146,17 +146,88 @@ var insert = function (intervals, newInterval) {
 
 //
 
-var leastInterval = function (tasks, n) {
-  let arr = [
-    [1, 2],
-    [3, 4],
-    [5, 6],
-  ];
+var insert = function (intervals, newInterval) {
+  let [start, end] = newInterval;
+  let left = [];
+  let right = [];
 
-  for (let i = 0; i < arr.length; i++) {
-    const element = arr[i];
-    console.log(element[0], element[1]);
+  for (const interval of intervals) {
+    let [first, last] = interval;
+
+    if (last < start) {
+      left.push(interval);
+    } else if (end < first) {
+      right.push(interval);
+    } else {
+      start = Math.min(first, start);
+      end = Math.max(last, end);
+    }
   }
+  return [...left, [start, end], ...right];
 };
 
-leastInterval(["A", "A", "A", "B", "B", "B"], 2);
+// console.log(
+//   insert(
+//     [
+//       [1, 2],
+//       [3, 5],
+//       [6, 7],
+//       [8, 10],
+//       [12, 16],
+//     ],
+//     [4, 8],
+//   ),
+// );
+
+//
+
+var merge = function (intervals) {
+  const start = 0;
+  const end = 1;
+
+  intervals = intervals.sort((a, b) => a[start] - b[start]);
+
+  let previous = intervals[0];
+  let res = [previous];
+
+  for (let current of intervals) {
+    if (current[start] <= previous[end]) {
+      previous[end] = Math.max(previous[end], current[end]);
+    } else {
+      res.push(current);
+      previous = current;
+    }
+  }
+  return res;
+};
+// console.log(
+//   merge([
+//     [2, 3],
+//     [2, 2],
+//     [3, 3],
+//     [1, 3],
+//     [5, 7],
+//     [2, 2],
+//     [4, 6],
+//   ]),
+// );
+
+//
+var leastInterval = function (tasks, n) {
+  const freq = new Array(26).fill(0);
+  let count = 0;
+
+  for (const task of tasks) {
+    let index = task.charCodeAt(0) - "A".charCodeAt(0);
+    freq[index]++;
+    count = Math.max(freq[index], count);
+  }
+  let ans = (count - 1) * (n + 1);
+
+  for (let i = 0; i < 26; i++) {
+    if (freq[i] === count) ans++;
+  }
+  return Math.max(ans, tasks.length);
+};
+
+console.log(leastInterval(["A", "C", "A", "B", "D", "B"], 1));
