@@ -2,60 +2,81 @@
 
 // 1. Adjacency List
 
-// Using Object:
-// const graph = {
-//   0: [1, 4],
-//   1: [0, 2, 3],
-//   2: [1, 3],
-//   3: [1, 2, 4],
-//   4: [0, 3],
-// };
-// console.log(graph);
-
-// Using Map:
-const graph = new Map();
-graph.set(0, [1, 4]);
-graph.set(1, [0, 2, 3]);
-graph.set(2, [1, 3]);
-graph.set(3, [1, 2, 4]);
-graph.set(4, [0, 3]);
-
-// Add node
-graph.set(5, []);
-
-// Add edge, 1 -> 5
-graph.get(1).push(5);
-
-// Remove edge, 2 -> 3
-graph.set(
-  2,
-  graph.get(2).filter((n) => n !== 3),
-);
-
-graph.delete(2);
-for (let [node, neighbors] of graph) {
-  graph.set(
-    node,
-    neighbors.filter((n) => n !== 2),
-  );
+function usingObjects() {
+  // const graph = {
+  //   A: ["B", "C"],
+  //   B: ["D"],
+  //   C: ["D"],
+  //   D: [],
+  // };
+  // console.log(graph);
 }
-
-console.log(graph);
+// usingObjects();
 
 //
 
-//  Adjacency Matrix
-const nodes = ["A", "B", "C", "D"];
-
-const matrix = [
-  [0, 1, 1, 0], // A -> B, C
-  [1, 0, 0, 1], // B -> A, D
-  [1, 0, 0, 1], // C -> A, D
-  [0, 1, 1, 0], // D -> B, C
-];
-console.log(matrix);
-
-function hasEdge(matrix, i, j) {
-  return matrix[i][j] === 1;
+// If there is weight
+function usingObjectsForWeighted() {
+  // const graph = {
+  //   A: [
+  //     { node: "B", weight: 5 },
+  //     { node: "C", weight: 2 },
+  //   ],
+  //   B: [],
+  //   C: [],
+  // };
+  // console.log(graph);
 }
-console.log(hasEdge(matrix, 0, 2)); // true
+// usingObjectsForWeighted();
+
+//
+function usingMap() {
+  const graph = new Map();
+
+  graph.set("A", ["B", "C"]);
+  graph.set("B", ["D"]);
+  graph.set("C", ["D"]);
+  graph.set("D", []);
+
+  console.log(graph);
+}
+// usingMap();
+
+//
+
+// 1. Adjacency Matrix
+
+function AdjacencyMatrix() {
+  const graph = [
+    [0, 1, 1, 0], // A
+    [0, 0, 0, 1], // B
+    [0, 0, 0, 1], // C
+    [0, 0, 0, 0], // D
+  ];
+  // console.log(graph);
+  // console.log(graph[0][1]); // edge A -> B
+}
+AdjacencyMatrix();
+
+//
+function checkNeighour() {
+  const graph = [
+    [0, 1, 1, 0], // A
+    [0, 0, 0, 1], // B
+    [0, 0, 0, 1], // C
+    [0, 0, 0, 0], // D
+  ];
+
+  const vertices = ["A", "B", "C", "D"];
+
+  // Find all neighbors of A
+  const neighborsOfA = [];
+  for (let j = 0; j < graph[0].length; j++) {
+    if (graph[0][j] === 1) {
+      neighborsOfA.push(vertices[j]);
+    }
+  }
+
+  console.log(neighborsOfA); // ["B", "C"]
+}
+checkNeighour();
