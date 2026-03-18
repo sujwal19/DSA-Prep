@@ -27,6 +27,8 @@ class Graph {
 
   // Remove a vertex
   removeVertex(vertex) {
+    if (!this.adjList[vertex]) return;
+
     while (this.adjList[vertex].length) {
       const neighbor = this.adjList[vertex].pop();
       this.removeEdge(vertex, neighbor);
@@ -36,24 +38,58 @@ class Graph {
 
   // BFS Traversal
   bfs(start) {
+    if (!this.adjList[start]) return [];
     const queue = [start];
-    const visited = new Set();
+    const visited = {};
     const result = [];
 
-    visited.add(start);
+    visited[start] = true;
 
     while (queue.length) {
       const current = queue.shift();
       result.push(current);
 
       for (const neighbor of this.adjList[current]) {
-        if (!visited.has(neighbor)) {
-          visited.add(neighbor);
+        if (!visited[neighbor]) {
+          visited[neighbor] = true;
           queue.push(neighbor);
         }
       }
     }
 
+    return result;
+  }
+
+  dfs(start, visited = {}, result = []) {
+    if (!this.adjList[start]) return [];
+    result.push(start);
+    visited[start] = true;
+
+    for (const neighbor of this.adjList[start]) {
+      if (!visited[neighbor]) {
+        this.dfs(neighbor, visited, result);
+      }
+    }
+    return result;
+  }
+
+  dfsIterative(start) {
+    if (!this.adjList[start]) return [];
+    const stack = [start];
+    const visited = new Set([start]);
+    const result = [];
+
+    while (stack.length > 0) {
+      const node = stack.pop();
+      result.push(node);
+
+      for (const neighbor of this.adjList[node]) {
+        if (!visited.has(neighbor)) {
+          visited.add(neighbor);
+          stack.push(neighbor);
+        }
+      }
+    }
     return result;
   }
 }
@@ -69,7 +105,13 @@ g.addEdge("D", "F");
 g.addEdge("E", "F");
 
 // Run BFS
-console.log(g.bfs("A"));
+// console.log(g.bfs("A"));
+console.log(g.bfsO("A"));
+console.log();
+console.log(g.dfs("A"));
+console.log();
+console.log(g.dfsIterative("A"));
+
 //
 
 function AdjacencyMatrix() {
