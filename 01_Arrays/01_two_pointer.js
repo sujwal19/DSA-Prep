@@ -1,27 +1,27 @@
-// Two Pointers
+/*
+Pattern: Two Pointers
+Problems:
+[Easy]  - LeetCode 1: Two Sum
+[Medium]- LeetCode 15: 3Sum
+[Hard]  - LeetCode 167: Two Sum II
+*/
 
-// There are three patterns for this:
-// 1. Bruteforce
-// 2. Better
-// 3. Optimal
-
-// BruteForce
-let aee = [2, 5, 1, 7, 10];
-let k = 14;
-var longestSubarray = function (aee) {
-  let maxLen = 0;
-  for (let i = 0; i < aee.length; i++) {
-    let sum = 0;
-    for (let j = i; j < aee.length; j++) {
-      sum += aee[j];
-      if (sum <= k) {
-        maxLen = Math.max(maxLen, j - i + 1);
-      } else if (sum > k) break;
-    }
-  }
-  return maxLen;
-};
-// console.log(longestSubarray(aee));
+// let aee = [2, 5, 1, 7, 10];
+// let k = 14;
+// var longestSubarray = function (aee) {
+//   let maxLen = 0;
+//   for (let i = 0; i < aee.length; i++) {
+//     let sum = 0;
+//     for (let j = i; j < aee.length; j++) {
+//       sum += aee[j];
+//       if (sum <= k) {
+//         maxLen = Math.max(maxLen, j - i + 1);
+//       } else if (sum > k) break;
+//     }
+//   }
+//   return maxLen;
+// };
+// // console.log(longestSubarray(aee));
 
 // Better
 var longestSubarrayBetter = function (aee, k) {
@@ -86,80 +86,87 @@ var validPalindrome = function (s) {
 };
 // console.log(validPalindrome(s));
 
-//
+/**
+ * File: two_pointer.js
+ * Pattern: Two Pointers
+ * Problems included:
+ * 1. LeetCode 977 - Squares of a Sorted Array (Easy)
+ * 2. LeetCode 167 - Two Sum II (Easy/Medium)
+ * 3. LeetCode 1750 - Minimum Length of String After Deleting Similar Ends (Medium)
+ *
+ * Usage:
+ * - Each problem is a self-contained function
+ * - Test cases are commented out, uncomment to run
+ */
 
-//
-let nums = [-4, -1, 0, 3, 10];
-var sortedSquares = function (nums) {
+// ====================== Problem 1: Squares of a Sorted Array (LC 977) ======================
+
+// Pattern: Two Pointers from ends
+// Key Idea: Compare absolute values from both ends and fill result from the back
+// Time Complexity: O(n)
+// Space Complexity: O(n) for result array
+// Edge Cases: Array with all negative numbers, zeros, or empty array
+
+function sortedSquares(nums) {
   let n = nums.length;
-  let left = 0;
-  let right = n - 1;
+  let left = 0,
+    right = n - 1,
+    pos = n - 1;
   let result = new Array(n);
-  let pos = n - 1;
 
   while (left <= right) {
     if (Math.abs(nums[left]) > Math.abs(nums[right])) {
-      result[pos] = nums[left] * nums[left];
+      result[pos] = nums[left] ** 2;
       left++;
     } else {
-      result[pos] = nums[right] * nums[right];
+      result[pos] = nums[right] ** 2;
       right--;
     }
     pos--;
   }
+
   return result;
-};
-// console.log(sortedSquares(nums));
+}
+// console.log(sortedSquares([-4, -1, 0, 3, 10]));
 
-//
+// ====================== Problem 2: Two Sum II (LC 167) ======================
+let numbers2 = [2, 7, 11, 15],
+  target2 = 9;
 
-//...........
-let numbers = [2, 7, 11, 15];
-let target = 9;
-var twoSum = function (numbers, target) {
-  let left = 0;
-  let right = numbers.length - 1;
+function twoSum(numbers, target) {
+  let left = 0,
+    right = numbers.length - 1;
 
   while (left < right) {
     let sum = numbers[left] + numbers[right];
-
-    if (sum === target) {
-      return [left + 1, right + 1];
-    } else if (sum > target) {
-      right--;
-    } else {
-      left++;
-    }
+    if (sum === target) return [left + 1, right + 1];
+    else if (sum > target) right--;
+    else left++;
   }
+
   return -1;
-};
-// console.log(twoSum(numbers, target));
+}
 
-//
+// console.log(twoSum(numbers2, target2));
 
-//
-let str1 = "cabaabac";
-var minimumLength = function (s) {
-  let left = 0;
-  let right = s.length - 1;
+// Problem 3: Minimum Length After Deleting Similar Ends (LC 1750) ======================
+let str3 = "cabaabac";
+
+function minimumLength(s) {
+  let left = 0,
+    right = s.length - 1;
 
   while (left < right) {
-    if (s[left] != s[right]) {
-      break;
-    } else {
-      let char = s[left];
-
-      while (left <= right && s[left] == char) {
-        left++;
-      }
-      while (left <= right && s[right] == char) {
-        right--;
-      }
-    }
+    if (s[left] != s[right]) break;
+    let char = s[left];
+    while (left <= right && s[left] == char) left++;
+    while (left <= right && s[right] == char) right--;
   }
+
   return right - left + 1;
-};
-// console.log(minimumLength(str1));
+}
+
+// console.log(minimumLength(str3));
 
 //
 

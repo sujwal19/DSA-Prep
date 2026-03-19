@@ -28,8 +28,6 @@ var fibonacci = function (n) {
 // };
 // console.log("Knabsack:", knabsack([1, 3, 4, 5], [1, 4, 5, 7], 7));
 
-//
-
 // Memoization
 var memoization = function (wt, val, w, n = wt.length) {
   let dp = new Array(n + 1).fill().map(() => new Array(w + 1).fill(-1));
@@ -54,4 +52,13 @@ var memoization = function (wt, val, w, n = wt.length) {
   knabsack(wt, val, w, n);
   return dp[n][w];
 };
-console.log("Knabsack:", memoization([1, 3, 4, 5], [1, 4, 5, 7], 7));
+// console.log("Knabsack:", memoization([1, 3, 4, 5], [1, 4, 5, 7], 7));
+
+// Subset sum
+var subsetsum = function (st, sum) {
+  if (st === 0 || sum === 0) return false;
+
+  if ()
+};
+
+console.log(subsetsum([2, 3, 7, 8, 10], 11));

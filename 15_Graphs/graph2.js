@@ -39,14 +39,14 @@ class Graph {
   // BFS Traversal
   bfs(start) {
     if (!this.adjList[start]) return [];
-    const queue = [start];
-    const visited = {};
-    const result = [];
+    let result = [];
+    let visited = {};
+    let queue = [start];
 
     visited[start] = true;
 
     while (queue.length) {
-      const current = queue.shift();
+      let current = queue.shift();
       result.push(current);
 
       for (const neighbor of this.adjList[current]) {
@@ -56,7 +56,6 @@ class Graph {
         }
       }
     }
-
     return result;
   }
 
@@ -76,7 +75,8 @@ class Graph {
   dfsIterative(start) {
     if (!this.adjList[start]) return [];
     const stack = [start];
-    const visited = new Set([start]);
+    const visited = {};
+    visited[start] = true;
     const result = [];
 
     while (stack.length > 0) {
@@ -84,13 +84,41 @@ class Graph {
       result.push(node);
 
       for (const neighbor of this.adjList[node]) {
-        if (!visited.has(neighbor)) {
-          visited.add(neighbor);
+        if (!visited[neighbor]) {
+          visited[neighbor] = true;
           stack.push(neighbor);
         }
       }
     }
     return result;
+  }
+
+  isCycleUndirDFS(start, parent, visited) {
+    visited[start] = true;
+
+    for (const neighbor of this.adjList[start]) {
+      if (!visited[neighbor]) {
+        if (this.isCycleUndirDFS(neighbor, start, visited)) {
+          return true;
+        }
+      } else if (neighbor != parent) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isCycle() {
+    const visited = {};
+
+    for (const node in this.adjList) {
+      if (!visited[node]) {
+        if (this.isCycleUndirDFS(node, -1, visited)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }
 const g = new Graph();
@@ -105,12 +133,12 @@ g.addEdge("D", "F");
 g.addEdge("E", "F");
 
 // Run BFS
-// console.log(g.bfs("A"));
-console.log(g.bfsO("A"));
+console.log(g.bfs("A"));
 console.log();
 console.log(g.dfs("A"));
 console.log();
 console.log(g.dfsIterative("A"));
+console.log(g.isCycle());
 
 //
 
