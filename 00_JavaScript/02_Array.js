@@ -187,12 +187,12 @@ let filledArr = Array(5).fill(9, 1, 4); /// (num, start, end)
 // mutate
 let oarr = new Array(3).fill({});
 oarr[0].x = 10; // mutate all items
-console.log(oarr);
+// console.log(oarr);
 
 // doesn't mutate all items
 let obArr = Array.from({ length: 5 }, () => ({}));
 obArr[0].x = 10;
-console.log(obArr);
+// console.log(obArr);
 
 let arraa = [1, 2];
 arraa.length = 5;
@@ -207,7 +207,19 @@ let [g, h] = [12, 24];
 // console.log(g, h);
 
 let [a, ...c] = [10, 15, 17];
-console.log(a, c);
+// console.log(a, c);
 
 let newarr = new Array(10).fill(1).map((x) => x);
-console.log(newarr);
+// console.log(newarr);
+
+const arr2 = [1, 2, 3, 4];
+
+// console.log(arr2.splice(1, 2));
+// console.log(arr2);
+
+console.log("hello".replace("h", "y")); // yello
+
+// console.log("hello".includes("ll")); // true
+
+// console.log("hello".startsWith("he")); // true
+// console.log("hello".endsWith("lo")); // true
