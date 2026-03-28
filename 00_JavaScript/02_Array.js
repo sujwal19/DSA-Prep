@@ -176,7 +176,7 @@ let strToArr = Array.from("hello");
 // console.log(strToArr);
 
 let numToArr = Array.from({ length: 5 }, (_, i) => i);
-console.log(numToArr);
+// console.log(numToArr);
 
 let newArrDef = Array.of(5, 6);
 // console.log(newArrDef);
@@ -217,9 +217,49 @@ const arr2 = [1, 2, 3, 4];
 // console.log(arr2.splice(1, 2));
 // console.log(arr2);
 
-console.log("hello".replace("h", "y")); // yello
+// console.log("hello".replace("h", "y")); // yello
 
 // console.log("hello".includes("ll")); // true
 
 // console.log("hello".startsWith("he")); // true
 // console.log("hello".endsWith("lo")); // true
+
+let araa = [1, 2, 3];
+
+let newaraa = araa.forEach((num) => {
+  console.log(num * 2);
+});
+
+// console.log(newaraa);
+
+const fruits = ["apple", "banana", "apple"];
+
+const count = fruits.reduce((acc, fruit) => {
+  acc[fruit] = (acc[fruit] || 0) + 1;
+  return acc;
+}, {});
+// console.log(count);
+
+const users = [
+  { id: 1, age: 19 },
+  { id: 2, age: 21 },
+  { id: 2, age: 23 },
+];
+const user = users.find((u) => u.id === 2);
+// console.log(user);
+
+//
+
+const customers = [
+  { id: 1, name: "Ram" },
+  { id: 2, name: "Hari" },
+];
+
+const customersUpdated = customers.map((user) =>
+  user.id === 2 ? { ...user, name: "Shyam" } : user,
+);
+// console.log(customersUpdated);
+
+let checkArr = Array.from({ length: 8 }, (_, i) => i);
+console.log(checkArr);
+// [0, 1, 2, 3, 4, 5, 6, 7]
