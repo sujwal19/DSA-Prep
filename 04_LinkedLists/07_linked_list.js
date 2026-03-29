@@ -97,13 +97,13 @@ function printLinkedList(head) {
 
 // 1. Access By Position
 function getNodeAt(head, pos) {
-  let count = 0;
+  let index = 0;
   let current = head;
 
   while (current !== null) {
-    if (count === pos) return current.val;
+    if (index === pos) return current.val;
     current = current.next;
-    count++;
+    index++;
   }
   return null;
 }
@@ -129,3 +129,146 @@ function printRecursively(node) {
 
 printRecursively(recHead);
 console.log("");
+
+// UPDATE
+// Update Node by Index
+function updateAt(head, index, value) {
+  let current = head;
+  let count = 0;
+
+  while (current) {
+    if (count === index) {
+      current.val = value;
+    }
+    current = current.next;
+    count++;
+  }
+  return head;
+}
+
+let updatedAt = updateAt(recHead, 2, 17);
+// console.log(JSON.stringify(updatedAt, null, 2));
+
+// Update Node by Value (First Occurrence)
+function updateValue(head, oldValue, newValue) {
+  let current = head;
+
+  while (current) {
+    if (current.val === oldValue) {
+      current.val = newValue;
+      return true;
+    }
+    current = current.next;
+  }
+  return false;
+}
+
+// let updatedValue = updateValue(recHead, 17, 82);
+// console.log(JSON.stringify(updatedValue, null, 2));
+
+// Update All Occurrences of a Value
+function updateAll(head, oldValue, newValue) {
+  let current = head;
+  let count = 0;
+
+  while (current) {
+    if (current.val === oldValue) {
+      current.val = newValue;
+      count++;
+    }
+    current = current.next;
+  }
+  return count;
+}
+
+let updatedAll = updateAll(recHead, 82, 2);
+// console.log(JSON.stringify(updatedAll, null, 2));
+
+// DELETE
+// DELETE from Beginning
+function deleteFromBeginning(head) {
+  if (!head) return null;
+  return head.next;
+}
+
+let delArr = [2, 4, 6, 8, 11, 15, 11, 11, 11, 23];
+let delHead = createLinkedList(delArr);
+
+delHead = deleteFromBeginning(delHead);
+// console.log(JSON.stringify(delHead, null, 2));
+
+//
+function deleteFromEnd(head) {
+  if (!head) return null;
+  if (!head.next) return null;
+
+  let current = head;
+  while (current.next.next) {
+    current = current.next;
+  }
+  current.next = null;
+  return head;
+}
+
+delHead = deleteFromEnd(delHead);
+// console.log(JSON.stringify(delHead, null, 2));
+
+// DELETE by Index
+function deleteAtIndex(head, index) {
+  if (!head) return null;
+  if (index === 0) return head.next;
+
+  let current = head;
+  let i = 0;
+  while (current.next && i < index - 1) {
+    current = current.next;
+    i++;
+  }
+
+  if (current.next) {
+    current.next = current.next.next;
+  }
+  return head;
+}
+
+delHead = deleteAtIndex(delHead, 4);
+// console.log(JSON.stringify(delHead, null, 2));
+
+// DELETE by Value (First Occurrence)
+function deleteByValue(head, value) {
+  if (!head) return null;
+
+  if (head.val === value) return head.next;
+
+  let current = head;
+  while (current.next && current.next.val !== value) {
+    current = current.next;
+  }
+  if (current.next) {
+    current.next = current.next.next;
+  }
+  return head;
+}
+
+delHead = deleteByValue(delHead, 11);
+// console.log(JSON.stringify(delHead, null, 2));
+
+//
+function deleteAllByValue(head, value) {
+  while (head && head.val === value) {
+    return head.next;
+  }
+
+  let current = head;
+  while (current && current.next) {
+    if (current.next.val === value) {
+      current.next = current.next.next;
+    } else {
+      current = current.next;
+    }
+  }
+  return head;
+}
+
+delHead = deleteAllByValue(delHead, 11);
+// console.log(JSON.stringify(delHead, null, 2));
