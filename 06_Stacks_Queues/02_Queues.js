@@ -1,42 +1,37 @@
 class Queue {
   constructor() {
     this.items = {};
-    this.frontIndex = 0;
-    this.rearIndex = 0;
+    this.front = 0;
+    this.rear = 0;
   }
 
+  // Create (Add)
   enqueue(element) {
-    this.items[this.rearIndex] = element;
-    this.rearIndex++;
+    this.items[this.rear] = element;
+    this.rear++;
   }
 
+  // Delete (Remove)
   dequeue() {
-    if (this.isEmpty()) return "Underflow";
+    if (this.isEmpty()) return "Queue is empty";
 
-    const item = this.items[this.frontIndex];
-    delete this.items[this.frontIndex];
-    this.frontIndex++;
+    const item = this.items[this.front];
+    delete this.items[this.front];
+    this.front++;
     return item;
   }
 
+  // Read (Front element)
   front() {
-    if (this.isEmpty()) return null;
-    return this.items[this.frontIndex];
+    return this.items[this.front];
   }
 
+  // Helper
   isEmpty() {
-    return this.rearIndex === this.frontIndex;
+    return this.rear === this.front;
   }
 
   size() {
-    return this.rearIndex - this.frontIndex;
+    return this.rear - this.front;
   }
 }
-
-const queue = new Queue();
-
-items[0] = 10;
-rearIndex = 1;
-
-items[1] = 20;
-rearIndex = 2;
