@@ -35,14 +35,37 @@ class Stack {
   }
 }
 
-const st = new Stack();
-st.push(20);
-st.push(30);
-st.push(40);
-st.push(50);
-st.print();
-console.log("peek:", st.peek());
-console.log("isempty:", st.isEmpty());
-console.log("pop", st.pop());
-st.update(1, 25);
-st.print();
+// const st = new Stack();
+// st.push(20);
+// st.push(30);
+// st.push(40);
+// st.push(50);
+// st.print();
+// console.log("peek:", st.peek());
+// console.log("isempty:", st.isEmpty());
+// console.log("pop", st.pop());
+// st.update(1, 25);
+// st.print();
+
+//
+
+function isBalanced(str) {
+  let stack = [];
+  // return true if brackets are balanced
+  for (let i = 0; i < str.length; i++) {
+    let ch = str[i];
+    //
+    if (ch === "(") stack.push(")");
+    else if (ch === "{") stack.push("}");
+    else if (ch === "[") stack.push("]");
+    else {
+      if (stack.length === 0 || stack.pop() !== ch) {
+        return false;
+      }
+    }
+  }
+  return stack.length === 0;
+}
+
+console.log(isBalanced("()[]{}")); // true
+console.log(isBalanced("(]")); // false
