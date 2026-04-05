@@ -72,3 +72,54 @@ function deleteNode(root, value) {
   deleteNode(root.left, value);
   deleteNode(root.right, value);
 }
+
+//
+
+function insert(root, value) {
+  const newNode = new TreeNode(value);
+
+  if (!root) return newNode;
+
+  const queue = [root];
+
+  while (queue.length > 0) {
+    const current = queue.shift();
+
+    if (!current.left) {
+      current.left = newNode;
+      return root;
+    } else {
+      queue.push(current.left);
+    }
+
+    if (!current.right) {
+      current.right = newNode;
+      return root;
+    } else {
+      queue.push(current.right);
+    }
+  }
+}
+
+insert(rootRecursive, 81);
+console.log(rootRecursive);
+
+//
+
+function update(root, oldValue, newValue) {
+  if (!root) return;
+
+  const queue = [root];
+
+  while (queue.length > 0) {
+    const current = queue.shift();
+
+    if (current.value === oldValue) {
+      current.value = newValue;
+      return;
+    }
+
+    if (current.left) queue.push(current.left);
+    if (current.right) queue.push(current.right);
+  }
+}

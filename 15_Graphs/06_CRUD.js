@@ -11,6 +11,9 @@ function addVertex(graph, vertex) {
   }
 }
 
+// Nodes → (Vertices) → points (people, cities, computers)
+// Edges → connections between them → (friendships, roads, cables)
+
 function addEdge(graph, v1, v2) {
   graph[v1].push(v2);
   graph[v2].push(v1);
