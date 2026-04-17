@@ -1,17 +1,60 @@
-let n = 5;
-let edges = [
-  [0, 1],
-  [1, 2],
-];
+let graph = {
+  A: ["B", "C"],
+  B: ["A", "D"],
+  C: ["A", "D"],
+  D: ["B", "C"],
+};
 
-function buildGraph(n, edges) {
-  const graph = {};
-  for (let i = 0; i < n; i++) graph[i] = [];
+function dfs(node, visited = new Set()) {
+  if (visited.has(node)) return;
 
-  for (let [start, visited] of edges) {
-    graph[start].push(visited);
-    graph[visited].push(start);
+  console.log(node);
+  visited.add(node);
+
+  for (let neighbor of graph[node]) {
+    dfs(neighbor, visited);
   }
-  return graph;
 }
-console.log(buildGraph(n, edges));
+
+dfs("A");
+console.log("......");
+//
+function dfsStack(start) {
+  let stack = [start];
+  let visited = new Set();
+
+  while (stack.length) {
+    let node = stack.pop();
+
+    if (!visited.has(node)) {
+      console.log(node);
+      visited.add(node);
+
+      for (let neighbor of graph[node]) {
+        stack.push(neighbor);
+      }
+    }
+  }
+}
+dfsStack("A");
+console.log("......");
+
+function bfs(start) {
+  let queue = [start];
+  let visited = new Set();
+
+  visited.add(start);
+
+  while (queue.length) {
+    let node = queue.shift();
+    console.log(node);
+
+    for (let neighbor of graph[node]) {
+      if (!visited.has(neighbor)) {
+        visited.add(neighbor);
+        queue.push(neighbor);
+      }
+    }
+  }
+}
+bfs("A");

@@ -54,7 +54,7 @@ function update(root, oldValue, newValue) {
   update(root.right, oldValue, newValue);
 }
 update(rootRecursive, 4, 44);
-console.log(rootRecursive);
+// console.log(rootRecursive);
 
 //
 
@@ -102,7 +102,7 @@ function insert(root, value) {
 }
 
 insert(rootRecursive, 81);
-console.log(rootRecursive);
+// console.log(JSON.stringify(rootRecursive, null, 2));
 
 //
 
@@ -122,4 +122,61 @@ function update(root, oldValue, newValue) {
     if (current.left) queue.push(current.left);
     if (current.right) queue.push(current.right);
   }
+}
+
+function levelOrder(root) {
+  let queue = [root];
+
+  while (queue.length) {
+    let node = queue.shift();
+    console.log(node.value);
+
+    if (node.left) queue.push(node.left);
+    if (node.right) queue.push(node.right);
+  }
+}
+
+levelOrder(rootRecursive);
+//
+
+function preorder(root) {
+  let stack = [root];
+
+  while (stack.length) {
+    let node = stack.pop();
+    console.log(node.val);
+
+    if (node.right) stack.push(node.right);
+    if (node.left) stack.push(node.left);
+  }
+}
+
+function inorder(root) {
+  let stack = [];
+  let current = root;
+
+  while (current || stack.length) {
+    while (current) {
+      stack.push(current);
+      current = current.left;
+    }
+  }
+}
+
+function count(root) {
+  if (!root) return 0;
+
+  return 1 + count(root.left) + count(root.right);
+}
+
+function count(root) {
+  if (!root) return 0;
+
+  return 1 + count(root.left) + count(root.right);
+}
+
+function sum(root) {
+  if (!root) return 0;
+
+  return root.val + sum(root.left) + sum(root.right);
 }
