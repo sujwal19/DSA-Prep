@@ -28,6 +28,7 @@ function createBST(arr) {
 
 let arr = [1, 3, 9, 7, 4, 2, 12, 45];
 let root = createBST(arr);
+
 // console.log(JSON.stringify(root, null, 2));
 //
 
@@ -44,8 +45,9 @@ function sortedArrayToBST(arr, start = 0, end = arr.length - 1) {
   return root;
 }
 
-let balancedRoot = sortedArrayToBST(arr);
-console.log(JSON.stringify(balancedRoot, null, 2));
+let sorted = [...arr].sort((a, b) => a - b);
+let balancedRoot = sortedArrayToBST(sorted);
+// console.log(JSON.stringify(balancedRoot, null, 2));
 
 function search(root, value) {
   if (root === null) return false;
@@ -84,7 +86,24 @@ function postorder(root) {
   }
 }
 
-// root = deleteNode(root, oldValue);
-// root = insert(root, newValue);
+function inorderIterative(root) {
+  let stack = [];
+  let current = root;
+  let result = [];
 
-//
+  while (current || stack.length) {
+    while (current) {
+      stack.push(current);
+      current = current.left;
+    }
+
+    current = stack.pop();
+    result.push(current.value);
+    current = current.right;
+  }
+
+  return result;
+}
+
+let res2 = inorderIterative(root);
+console.log(res2);
